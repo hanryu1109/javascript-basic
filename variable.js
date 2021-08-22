@@ -96,3 +96,24 @@ console.log(`value: ${x}, type: ${typeof x}`);
 // symbol, create unique identifies for objects
 const symbol1 = Symbol('id');
 const symbol2 = Symbol('id');
+console.log(symbol1 === symbol2); // false
+const gSymbol1 = Symbol.for('id');
+const gSymbol2 = Symbol.for('id');
+console.log(gSymbol1 === gSymbol2); // true 
+console.log(`value: ${symbol1.description}, type: ${typeof symbol1}`) // 정상출력, symbole을 출력하려면 string 으로 바꿔줘야만 하는데 그 메소드가 .description 이다
+
+// object, real-life object, data structure
+const done = {name: 'done', age: 20};
+done.age = 29;
+
+// 5. Dynamic typing: dynamically typed language
+let text = 'hello';
+console.log(text.charAt(0)); // h
+console.log(`value: ${text}, type: ${typeof text}`); // string
+text = 1;
+console.log(`value: ${text}, type: ${typeof text}`); // number
+text = '7' + 5;
+console.log(`value: ${text}, type: ${typeof text}`); // '75', string
+text = '8' / 2;
+console.log(`value: ${text}, type: ${typeof text}`); // 4, number
+console.log(text.charAt(0)); // TypeError
