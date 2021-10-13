@@ -41,7 +41,7 @@ class User {
     }
 
     set age(value) {
-        // setter, object.age = value 를 실행할 때 실행되는 코드 (프로퍼티에 값ㅇ르 할당하려고 할 때 실행)
+        // setter, object.age = value 를 실행할 때 실행되는 코드 (프로퍼티에 값을 할당하려고 할 때 실행)
         this._age = value < 0 ? 0 : value;
     }
 }

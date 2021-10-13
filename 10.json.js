@@ -15,3 +15,58 @@
 // 서버가 데이터를 주고 받을 때는 xml만 가능한가요? 서버와 데이터를 주고 받을 때는 엑셀 뿐만 아니라 굉장히 다양한 파일 포맷을 전달받을 수 있는데요. 
 // Ajax와 XHR이 활발히 개발되고 있을 당시의 마이크로소프타사의 아웃룩 개발팀이 활발히 참여해서 만들게 되었는데요, 이 때 아웃룩은 서버와 클라이언트의 데이터를 전송할 때 XML 을 사용했는데요 그래서 ...
 // 데이터를 주고 받을 때는 XML뿐만 아니라 다양한 타입의 데이터를 주고 받을 수 있기 때문에 xml 
+
+// JSON.stringfy() 메서드 : JavaScript 값이나 객체를 JSON 문자열로 변환
+// JSON.parse() 메서드 : JSON 문자열의 구문을 분석하고, 그 결과에서 
+
+// JSON
+// JavaScript Object Notation
+
+// 1. Object to JSON
+// stringfy(obj)
+let json = JSON.stringify(true);
+console.log(json);
+
+json = JSON.stringify(['APPLE', 'BANANA']);
+console.log(json);
+console.log(typeof json);
+
+const rabbit = {
+    name: "tori",
+    color: "white",
+    size: null,
+    birthDate: new Date(),
+    jump: () => console.log(`${name} can jump`), // 함수는 object의 data에 보이지 않음
+};
+
+json = JSON.stringify(rabbit);
+console.log(json);
+
+json = JSON.stringify(rabbit, ["name", "color", "size"]); // 원하는 property만 JSON으로 변환됨
+console.log(json);
+
+json = JSON.stringify(rabbit, (key , value) => {
+    console.log(`key: ${key}, value: ${value}`);
+    // return value;
+    return key === "name" ? "handone" : value;
+});
+console.log(json);
+
+// 2. JSON to Object
+// parse(json)
+console.clear();
+
+json = JSON.stringify(rabbit);
+
+const obj = JSON.parse(json, (key, value) => {
+    console.log(`key: ${key}, value: ${value}`);
+    return key === "birthDate" ? new Date(value) : value;
+});
+console.log(obj);
+
+rabbit.jump(); // can jump!
+// obj.jump(); // uncaught TypeError
+
+console.log(rabbit.birthDate.getDate());
+console.log(obj.birthDate.getDate());
+// console.log(obj.birthDate); // 2021-10-13T09:13:08.758Z
