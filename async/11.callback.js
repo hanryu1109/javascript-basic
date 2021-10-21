@@ -13,6 +13,8 @@ console.log("3");
 // 비동기를 설명하기 위해 아주 적절한 예: setTimeout 이라는 웹 api가 있음
 
 // 콜백함수란: 지금 당장 실행되지는 않고 네가 조건이 맞았을 때 우리가 전달해준 함수를 나중에 다시 불러줘(callback) 전달하는 함수를 콜백함수!
+// 콜백함수란 다른 함수에 매개변수로 넘겨준 함수를 말한다.
+// 매개변수로 넘겨 받은 함수는 일단 넘겨 받고, 때가 되면 나중에 호출(call back)한다는 것이 콜백함수의 개념이다.
 
 // 자바스크립트 엔진은 코드를 제일 위에서부터 아래로 실행,
 
@@ -24,13 +26,13 @@ console.log("3");
 
 // Synchronous callback
 function printImmediately(print) {
-  print();
+    print();
 } // 함수는 호이스팅된다.
 printImmediately(() => console.log("hello"));
 
 // Asynchronous callback
 function printWithDealy(print, timeout) {
-  setTimeout(print, timeout);
+    setTimeout(print, timeout);
 }
 printWithDealy(() => console.log("async callback"), 2000);
 
@@ -38,50 +40,52 @@ printWithDealy(() => console.log("async callback"), 2000);
 // Callback Hell example
 
 class UserStorage {
-  loginUser(id, password, onSuccess, onError) {
-    setTimeout(() => {
-      if (
-        (id === "handone" && password === "1111") ||
-        (id === "coder" && password === "academy")
-      ) {
-        onSuccess(id);
-      } else {
-        onError(new Error("not found"));
-      }
-    }, 2000);
-  }
+    loginUser(id, password, onSuccess, onError) {
+        setTimeout(() => {
+            if (
+                (id === "handone" && password === "1111") ||
+                (id === "coder" && password === "academy")
+            ) {
+                onSuccess(id);
+            } else {
+                onError(new Error("not found"));
+            }
+        }, 2000);
+    }
 
-  getRoles(user, onSuccess, onError) {
-    setTimeout(() => {
-      if (user === "handone") {
-        onSuccess({ name: "handone", role: "admin" });
-      } else {
-        onError(new Error("no access"));
-      }
-    }, 1000);
-  }
+    getRoles(user, onSuccess, onError) {
+        setTimeout(() => {
+            if (user === "handone") {
+                onSuccess({ name: "handone", role: "admin" });
+            } else {
+                onError(new Error("no access"));
+            }
+        }, 1000);
+    }
 }
 
 const userStorage = new UserStorage();
 const id = prompt("enter your id");
 const password = prompt("enter your password");
 userStorage.loginUser(
-  id,
-  password,
-  (user) => {
-    userStorage.getRoles(
-      user,
-      (userWithRole) => {
-        alert(`hello ${userWithRole.name}, you have ${userWithRole.role}`);
-      },
-      (error) => {
+    id,
+    password,
+    (user) => {
+        userStorage.getRoles(
+            user,
+            (userWithRole) => {
+                alert(
+                    `hello ${userWithRole.name}, you have ${userWithRole.role}`
+                );
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
+    },
+    (error) => {
         console.log(error);
-      }
-    );
-  },
-  (error) => {
-    console.log(error);
-  }
+    }
 );
 
 // const userStorage = new UserStorage();
